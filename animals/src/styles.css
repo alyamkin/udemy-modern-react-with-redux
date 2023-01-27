@@ -1,0 +1,22 @@
+.animals {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 200px;
+}
+
+.animal {
+  height: inherit;
+  position: relative;
+}
+
+.animal img {
+  display: block;
+  height: 100%;
+}
+
+.heart {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
