@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useCallback } from "react";
 import api from "../api";
 
 export const BooksContext = createContext();
@@ -6,11 +6,11 @@ export const BooksContext = createContext();
 const Provider = ({ children }) => {
   const [books, setBooks] = useState([]);
 
-  const fetchBooks = async () => {
+  const fetchBooks = useCallback(async () => {
     const books = await api.getAllBooks();
 
     setBooks(books);
-  };
+  }, []);
 
   const createBook = async (title) => {
     const book = await api.postNewBook({ title });
