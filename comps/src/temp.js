@@ -41,3 +41,24 @@ promise.then(
 [...document.querySelectorAll("*")].filter((el) => {
   return !["", "static"].includes(el.style.position);
 });
+
+const data = [
+  { name: "Tomato", cost: 10, weight: 5 },
+  { name: "Carrot", cost: 15, weight: 2 },
+  { name: "Onion", cost: 5, weight: 7 },
+];
+
+function getSortValue(obj, prop) {
+  return obj[prop];
+}
+
+data.sort((objA, objB) => {
+  const valueA = getSortValue(objA, "name");
+  const valueB = getSortValue(objB, "name");
+
+  return valueA.localeCompare(valueB);
+});
+
+data.sort((obj1, obj2) => {
+  return obj1.cost - obj2.cost;
+});
