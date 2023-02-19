@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import ReactDOM from "react-dom";
 import Modal from "../components/Modal";
 import Button from "../components/Button";

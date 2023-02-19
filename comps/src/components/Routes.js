@@ -4,6 +4,7 @@ import DropdownPage from "../Pages/DropdownPage";
 import ButtontPage from "../Pages/ButtonPage";
 import ModalPage from "../Pages/ModalPage";
 import TablePage from "../Pages/TablePage";
+import CounterPage from "../Pages/CounterPage";
 
 function Routes() {
   return (
@@ -22,6 +23,9 @@ function Routes() {
       </Route>
       <Route path="/table">
         <TablePage />
+      </Route>
+      <Route path="/counter">
+        <CounterPage initialCount={0} />
       </Route>
     </div>
   );

@@ -1,30 +1,13 @@
-import { useState } from "react";
 import { GoArrowSmallDown, GoArrowSmallUp } from "react-icons/go";
+import useSort from "../hooks/useSort";
 import Table from "./Table";
 
 function SortableTable(props) {
-  const [sortOrder, setSortOrder] = useState(null);
-  const [sortBy, setSortBy] = useState(null);
   const { config, data } = props;
-
-  const handleClick = (label) => {
-    if (label !== sortBy) {
-      setSortOrder("asc");
-      setSortBy(label);
-      return;
-    }
-
-    if (sortOrder === null) {
-      setSortOrder("asc");
-      setSortBy(label);
-    } else if (sortOrder === "asc") {
-      setSortOrder("desc");
-      setSortBy(label);
-    } else if (sortOrder === "desc") {
-      setSortOrder(null);
-      setSortBy(null);
-    }
-  };
+  const { setSortColumn, sortedData, sortBy, sortOrder } = useSort(
+    data,
+    config
+  );
 
   const updatedConfig = config.map((column) => {
     if (!column.sortValue) {
@@ -36,7 +19,7 @@ function SortableTable(props) {
       header: () => (
         <th
           className="cursor-pointer hover:bg-gray-100"
-          onClick={() => handleClick(column.label)}
+          onClick={() => setSortColumn(column.label)}
         >
           <div className="flex items-center">
             {getIcons(column.label, sortBy, sortOrder)}
@@ -46,27 +29,6 @@ function SortableTable(props) {
       ),
     };
   });
-
-  const sortData = (data, sortBy, sortOrder) => {
-    if (sortOrder && sortBy) {
-      const { sortValue, sortFunction } = config.find(
-        (column) => sortBy === column.label
-      );
-
-      const sortedData = [...data].sort((a, b) => {
-        const valueA = sortValue(a);
-        const valueB = sortValue(b);
-        const reverseOrder = sortOrder === "asc" ? 1 : -1;
-        return sortFunction(valueA, valueB) * reverseOrder;
-      });
-
-      return sortedData;
-    }
-
-    return data;
-  };
-
-  let sortedData = sortData(data, sortBy, sortOrder);
 
   const getIcons = (label, sortBy, sortOrder) => {
     if (label !== sortBy) {
@@ -78,7 +40,7 @@ function SortableTable(props) {
       );
     }
 
-    if (sortOrder == "null") {
+    if (sortOrder === "null") {
       return (
         <div>
           <GoArrowSmallUp />
